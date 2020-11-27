@@ -4,4 +4,4 @@ metadata:
   name: mariadb-broker
 spec:
   #url: http://192.168.56.101:8005
-  url: http://mariadb-broker.default:80
+  url: http://mariadb-broker-mariadb-broker.default:80

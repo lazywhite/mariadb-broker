@@ -30,7 +30,7 @@ docker build . -t "<yourrepo>:<tag>"
 docker push <yourrepo>:<tag>
 
 2. install broker by helm chart
-helm install --name=mariadb-broker charts/mariadb-broker
+helm install mariadb-broker charts/mariadb-broker
 
 3. register broker(change url first)
 kubectl apply -f examples/1.mariadb-broker.yaml
