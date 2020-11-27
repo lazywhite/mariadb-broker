@@ -1,14 +1,16 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
 	"path"
+	"strconv"
 
-	"github.com/kubernetes-incubator/service-catalog/contrib/pkg/broker/server"
-	"github.com/kubernetes-incubator/service-catalog/pkg"
-	"github.com/prydonius/mariadb-broker/controller"
+	"github.com/kubernetes-sigs/service-catalog/contrib/pkg/broker/server"
+	"github.com/kubernetes-sigs/service-catalog/pkg"
+	"github.com/lazywhite/mariadb-broker/controller"
 )
 
 var options struct {
@@ -26,5 +28,5 @@ func main() {
 		return
 	}
 
-	server.Start(options.Port, controller.CreateController())
+	server.Run(context.TODO(), ":" + strconv.Itoa(options.Port), controller.CreateController())
 }

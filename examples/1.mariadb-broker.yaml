@@ -3,4 +3,5 @@ kind: ClusterServiceBroker
 metadata:
   name: mariadb-broker
 spec:
-  url: http://x.x.x.x:8005
+  #url: http://192.168.56.101:8005
+  url: http://mariadb-broker.default:80

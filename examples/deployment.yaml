@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+      - name: demo
+        image: "alpine:latest"
+        command: ["sleep", "999999999999"]
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: demo-mariadb-credentials
+              key: host
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: demo-mariadb-credentials
+              key: port
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: demo-mariadb-credentials
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: demo-mariadb-credentials
+              key: password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: demo-mariadb-credentials
+              key: database

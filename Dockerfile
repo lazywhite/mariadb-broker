@@ -1,6 +1,6 @@
-FROM golang:1.8
-COPY . /go/src/github.com/prydonius/mariadb-broker
-WORKDIR /go/src/github.com/prydonius/mariadb-broker
+FROM golang:1.13
+COPY . /src/github.com/lazywhite/mariadb-broker
+WORKDIR /src/github.com/lazywhite/mariadb-broker
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /mariadb-broker . && strip /mariadb-broker
 
 FROM alpine:3.6

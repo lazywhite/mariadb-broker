@@ -6,9 +6,9 @@ import (
 	"os"
 
 	"github.com/golang/glog"
-	"github.com/kubernetes-incubator/service-catalog/contrib/pkg/broker/controller"
-	"github.com/kubernetes-incubator/service-catalog/pkg/brokerapi"
-	"github.com/prydonius/mariadb-broker/client"
+	"github.com/kubernetes-sigs/service-catalog/contrib/pkg/broker/controller"
+	"github.com/kubernetes-sigs/service-catalog/contrib/pkg/brokerapi"
+	"github.com/lazywhite/mariadb-broker/client"
 )
 
 type errNoSuchInstance struct {
@@ -60,8 +60,10 @@ func (c *mariadbController) GetServiceInstance(id string) (string, error) {
 	return "", errors.New("Unimplemented")
 }
 
-func (c *mariadbController) RemoveServiceInstance(id string) (*brokerapi.DeleteServiceInstanceResponse, error) {
-	if err := client.Delete(id); err != nil {
+
+func (c *mariadbController) RemoveServiceInstance(instanceID, serviceID, planID string, acceptsIncomplete bool) (*brokerapi.DeleteServiceInstanceResponse, error){
+
+	if err := client.Delete(instanceID); err != nil {
 		return nil, err
 	}
 	return &brokerapi.DeleteServiceInstanceResponse{}, nil
@@ -86,7 +88,12 @@ func (c *mariadbController) Bind(instanceID, bindingID string, req *brokerapi.Bi
 	}, nil
 }
 
-func (c *mariadbController) UnBind(instanceID string, bindingID string) error {
-	// Since we don't persist the binding, there's nothing to do here.
+func (c *mariadbController) UnBind(instanceID, bindingID, serviceID, planID string) error{
 	return nil
+}
+func (c *mariadbController) GetServiceInstanceLastOperation(instanceID, serviceID, planID, operation string) (*brokerapi.LastOperationResponse, error) {
+	return nil, nil
+}
+func (c *mariadbController) UpdateServiceInstance(instanceID string, req *brokerapi.UpdateServiceInstanceRequest) (*brokerapi.UpdateServiceInstanceResponse, error){
+	return nil, nil
 }
